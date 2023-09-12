@@ -9,25 +9,15 @@ Si se llama a una función cancel antes de que se cumplan los 5 segundos, la pro
 */
 
 const mainFunctionFive = () => {
-    const promesa = new Promise((resolve, reject) => {
-    setTimeout(() => {
-            resolve("Promesa resuelta");
+    return new Promise( (resolve, reject) => {
+        const time = setTimeout( () => {
+            clearTimeout(time);
+            reject("Promesa Cancelada")
+            resolve( "Promsea resuelta ")
         }, 5000);
     });
-    
-    
-    const cancel = () => {
-    promesa.reject("Promesa cancelada");
-    };
-
-    return { promesa, cancel };
 }
 
-const { promesa, cancel } = promesaConCancelacion();
 
-promesa.then( console.log );
-
-cancel();
-
-promesa.catch(error);
+mainFunctionFive().then( console.log )
 
